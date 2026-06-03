@@ -1,9 +1,13 @@
-# Cost-Sensitive Sentiment Analysis of Amazon Reviews
+# Cost-Aware Sentiment Analysis: A Multi-Model Ensemble with LLM-Assisted Error Attribution
 
-**Multi-model stacking ensemble for negative-review early warning, with end-to-end cost sensitivity and LLM-assisted error attribution.**
+**End-to-end cost-sensitive negative-review detection: a dual-channel, nine-model stacking ensemble with an LLM-assisted error-attribution study.**
 
-> 面向业务代价的亚马逊评论情感分析：多模型集成与错误归因。
+Qi Wang · School of Computer Science and Technology, Tianjin University · `ddkk0759@gmail.com`
+
+> 面向业务代价的亚马逊评论情感分析：多模型集成与 LLM 辅助错误归因。
 > 将差评定义为业务正类，在「类别权重 → 加权损失 → 超参目标 → 集成元学习 → 推理阈值」全链路统一注入 5:1 代价信号。
+
+**Keywords:** negative-review detection · cost-sensitive learning · ensemble learning · error analysis
 
 ---
 
@@ -36,24 +40,25 @@ separate genuine model errors from label noise.
 
 ## Headline results
 
-Full Amazon split (3.6M train / 400k test), negative review = positive class,
-`C_FN : C_FP = 5 : 1`.
+Full corpus (3.6M train / 400k test, 1:1 balance), negative review = positive class,
+`C_FN : C_FP = 5 : 1`. `C_total = 5·FN + FP`.
 
-| Model                         | Accuracy | P(neg) | R(neg) | F1(neg) |  C_total |
-| ----------------------------- | :------: | :----: | :----: | :-----: | -------: |
-| **Stacking (9 models, cost-aware)** | **0.9012** | 0.8476 | **0.9783** | **0.9083** | **56,880** |
-| Stacking (sequence only)      |  0.9004  | 0.8471 | 0.9771 | 0.9075  |   58,160 |
-| Soft Voting (9 models)        |  0.8736  | 0.8086 | 0.9789 | 0.8856  |   67,440 |
-| LSTM                          |  0.8869  | 0.8316 | 0.9702 | 0.8956  |   69,080 |
-| Linear SVM                    |  0.8903  | 0.8856 | 0.8964 | 0.8910  |  126,760 |
-| Naive Bayes                   |  0.6978  | 0.6246 | 0.9918 | 0.7665  |  127,440 |
+| Model                               | ROC-AUC | P(neg) | R(neg) | F1(neg) |  C_total |
+| ----------------------------------- | :-----: | :----: | :----: | :-----: | -------: |
+| **Stacking (9 models, cost-aware)** | **0.962** | 0.848 | **0.978** | **0.908** | **56,880** |
+| Stacking (sequence only)            |  0.960  | 0.847  | 0.977  | 0.907   |   58,160 |
+| Soft Voting (9 models)              |  0.945  | 0.809  | 0.979  | 0.886   |   67,440 |
+| LSTM                                |  0.949  | 0.832  | 0.970  | 0.896   |   69,080 |
+| Linear SVM                          |  0.948  | 0.886  | 0.896  | 0.891   |  126,760 |
+| Naive Bayes                         |  0.812  | 0.625  | 0.992  | 0.767   |  127,440 |
 
-The cost-aware stacking ensemble achieves the lowest business cost, while the high-accuracy
-Linear SVM still incurs ~2.2× the cost due to its low negative-recall — illustrating that
-**high accuracy does not imply low business cost**.
+The cost-aware stacking ensemble achieves the best ROC-AUC, F1(neg), and the lowest business
+cost. The near-best-AUC Linear SVM still incurs ~2.2× the cost due to its low negative-recall,
+illustrating that **high accuracy/AUC does not imply low business cost**.
 
-LLM error attribution on 812 disputed misclassifications: **71.4%** (95% CI 68.2%–74.5%)
-agree with the original star-derived label, suggesting systematic label noise.
+LLM-assisted adjudication of 812 disputed misclassifications: **71.4%** (95% CI 68.2%–74.5%)
+agree with the original label (genuine model errors), while the remaining **28.6%** side with
+the model and expose systematic label noise.
 
 ---
 
@@ -163,10 +168,11 @@ No API keys are stored in the repository; all credentials are read from environm
 If you find this work useful, please cite:
 
 ```bibtex
-@misc{amazon_cost_sensitive_sentiment,
-  title  = {Cost-Sensitive Sentiment Analysis of Amazon Reviews:
-            Multi-Model Stacking Ensemble and Error Attribution},
-  author = {Your Name},
+@misc{wang_cost_aware_sentiment,
+  title  = {Cost-Aware Sentiment Analysis: A Multi-Model Ensemble
+            with LLM-Assisted Error Attribution},
+  author = {Wang, Qi},
+  school = {School of Computer Science and Technology, Tianjin University},
   year   = {2025},
   note   = {https://github.com/your-username/your-repo}
 }
