@@ -1,0 +1,37 @@
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# ---- local-only backups (paper drafts, scratch) ----
+.local_backup/
+
+# ---- datasets (download separately, see README) ----
+train.ft.txt
+test.ft.txt
+*.ft.txt
+data/
+
+# ---- large / regenerable artifacts ----
+# trained model binaries can be re-produced by running the pipeline
+outputs/models/
+# per-sample error dumps (large CSVs); keep only summary tables
+outputs/logs/dispute_*.csv
+outputs/logs/stacking_errors_all.csv
+outputs/logs/stacking_high_conf_errors_all.csv
+outputs/logs/stacking_high_conf_errors_top200.csv
+outputs/llm_judgments/raw_responses.jsonl
+
+# ---- misc ----
+*.log
+*.tmp

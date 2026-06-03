@@ -1,0 +1,33 @@
+numpy>=1.26
+pandas>=2.0
+scipy>=1.11
+scikit-learn>=1.4
+matplotlib>=3.7
+seaborn>=0.13
+
+# classic models
+lightgbm>=4.0
+xgboost>=2.0
+optuna>=3.5
+joblib>=1.3
+
+# sequence models
+torch>=2.2
+gensim>=4.3
+
+# preprocessing
+nltk>=3.8
+contractions>=0.1.73
+pyspellchecker>=0.7
+
+# optional英->美 spelling
+breame>=0.0.5
+
+# LLM providers (all optional — at least one is needed for non-stub mode)
+openai>=1.30
+anthropic>=0.30
+requests>=2.31
+
+# notebook
+jupyter
+ipykernel
