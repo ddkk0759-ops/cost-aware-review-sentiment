@@ -174,7 +174,7 @@ If you find this work useful, please cite:
   author = {Wang, Qi},
   school = {School of Computer Science and Technology, Tianjin University},
   year   = {2025},
-  note   = {https://github.com/your-username/your-repo}
+  note   = {https://github.com/ddkk0759-ops/cost-aware-review-sentiment}
 }
 ```
 
